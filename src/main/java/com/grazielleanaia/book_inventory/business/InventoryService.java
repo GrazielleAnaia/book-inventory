@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -81,7 +80,7 @@ public class InventoryService {
             log.warn("Author not found: {}", author);
             return Collections.emptyList();
         }
-        return authorList.stream().map(mapper::toDTOResponse).collect(Collectors.toList());
+        return authorList.stream().map(mapper::toDTOResponse).toList();
     }
 
     public InventoryDTOResponse updateBook(Long id, InventoryDTORequest dtoRequest) {
@@ -93,7 +92,7 @@ public class InventoryService {
     }
 
     public void deleteBook(Long id) {
-        InventoryEntity inventory = repository.findById(id).orElseThrow(() ->
+        repository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Book id not found " + id));
         repository.deleteById(id);
     }
