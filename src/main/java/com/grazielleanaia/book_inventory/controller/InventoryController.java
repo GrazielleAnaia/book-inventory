@@ -3,6 +3,7 @@ package com.grazielleanaia.book_inventory.controller;
 import com.grazielleanaia.book_inventory.business.InventoryService;
 import com.grazielleanaia.book_inventory.controller.dto.InventoryDTORequest;
 import com.grazielleanaia.book_inventory.controller.dto.InventoryDTOResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class InventoryController {
     private final InventoryService service;
 
     @PostMapping("/save")
-    public ResponseEntity<InventoryDTOResponse> createBook(@RequestBody InventoryDTORequest dtoRequest) {
+    public ResponseEntity<InventoryDTOResponse> createBook(@Valid @RequestBody InventoryDTORequest dtoRequest) {
         return ResponseEntity.ok(service.saveBook(dtoRequest));
     }
 
